@@ -13,7 +13,7 @@ namespace MyCompany.Data.Configurations
         {
             builder.HasKey(x => x.DepartmentId);
             builder.Property(x => x.DepartmentId).UseIdentityColumn();
-            builder.Property(x => x.DepartmentName).IsRequired();
+            builder.Property(x => x.DepartmentName).IsRequired().HasColumnType("varchar(200)");
             builder.ToTable("Departments");
         }
     }

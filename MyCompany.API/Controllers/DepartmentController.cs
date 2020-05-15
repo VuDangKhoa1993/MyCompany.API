@@ -21,23 +21,21 @@ namespace MyCompany.API.Controllers
     {
         private readonly IDepartmentService _departmentService;
         private readonly IMapper _mapper;
-        private readonly ILogger _logger;
-        public DepartmentController(IDepartmentService departmentService, IMapper mapper, ILogger<DepartmentController> logger)
+        public DepartmentController(IDepartmentService departmentService, IMapper mapper)
         {
             _departmentService = departmentService;
             _mapper = mapper;
-            _logger = logger;
         }
 
         [HttpGet]
         [SwaggerOperation("Query a list of the department")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<Department>>> ListAsync()
+        public async Task<ActionResult<IEnumerable<DepartmentResource>>> ListAsync()
         {
             var result = await _departmentService.GetAllDepartmentsAsync();
 
             var response = _mapper.Map<IEnumerable<Department>, IEnumerable<DepartmentResource>>(result);
-            _logger.LogInformation("Query success");
+           
             return Ok(response);
         }
 
@@ -50,7 +48,7 @@ namespace MyCompany.API.Controllers
         [SwaggerOperation("Query a department detail by id")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Department>> GetDepartmentById(int id)
+        public async Task<ActionResult<DepartmentResource>> GetDepartmentById(int id)
         {
             var result = await _departmentService.GetDepartmentById(id);
             

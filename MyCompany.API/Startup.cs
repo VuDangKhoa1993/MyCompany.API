@@ -54,7 +54,16 @@ namespace MyCompany.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            } else
+            {
+                app.UseExceptionHandler("/Error");
             }
+
+            app.Use(async (context, next) =>
+            {
+                await next.Invoke();
+            });
+
 
             app.UseHttpsRedirection();
 

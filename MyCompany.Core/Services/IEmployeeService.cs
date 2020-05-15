@@ -1,4 +1,5 @@
 ﻿using MyCompany.Core.Models.Entities;
+using MyCompany.Core.Services.Communication.Response;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,8 +12,8 @@ namespace MyCompany.Core.Services
         Task<IEnumerable<Employee>> GetAllEmployeesAsync();
         Task<IEnumerable<Employee>> GetAllEmployeesByDepartmentIdAsync(int departmentId);
         Task<Employee> GetEmployeeByIdAsync(int id);
-        Task<Employee> CreateAsync(Employee employee);
-        Task<Employee> UpdateAsync(int id, Employee employee);
-        Task<Employee> DeleteAsync(int id);
+        Task<EmployeeResponse> CreateAsync(Employee employee);
+        Task<EmployeeResponse> UpdateAsync(int id, Employee employee);
+        Task<EmployeeResponse> DeleteAsync(int id);
     }
 }

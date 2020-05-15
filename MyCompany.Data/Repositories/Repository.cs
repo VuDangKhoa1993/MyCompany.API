@@ -33,7 +33,7 @@ namespace MyCompany.Data.Repository
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            return await _context.Set<TEntity>().ToListAsync();
+            return await _context.Set<TEntity>().AsNoTracking<TEntity>().ToListAsync();
         }
 
         public void Remove(TEntity entity)

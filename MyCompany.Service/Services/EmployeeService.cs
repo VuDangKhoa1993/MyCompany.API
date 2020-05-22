@@ -19,7 +19,7 @@ namespace MyCompany.Service.Services
 
         public async Task<IEnumerable<Employee>> GetAllEmployeesAsync()
         {
-            return await _unitOfWork.Employee.GetAllAsync();
+            return await _unitOfWork.Employee.GetAllEmployeeAsync();
         }
 
         public async Task<IEnumerable<Employee>> GetAllEmployeesByDepartmentIdAsync(int departmentId)
@@ -29,7 +29,7 @@ namespace MyCompany.Service.Services
 
         public async Task<Employee> GetEmployeeByIdAsync(int id)
         {
-            return await _unitOfWork.Employee.FindAsync(id);
+            return await _unitOfWork.Employee.GetEmployeeByIdAsync(id);
         }
 
         public async Task<EmployeeResponse> CreateAsync(Employee employee)

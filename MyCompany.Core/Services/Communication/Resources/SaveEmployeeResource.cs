@@ -14,5 +14,7 @@ namespace MyCompany.Core.Services.Communication.Resources
         public DateTime HiredDate { get; set; }
         public ICollection<SaveTitleResource> Titles { get; set; }
         public ICollection<SaveSalariesResource> Salaries { get; set; }
+        public ICollection<SaveDepartmentEmployeeResource> DepartmentEmployees { get; set; }
+
     }
 }

@@ -13,7 +13,8 @@ namespace MyCompany.Core.Services.Communication.Resources
         public string LastName { get; set; }
         public Gender Gender { get; set; }
         public DateTime HiredDate { get; set; }
-        //public ICollection<Title> Titles { get; set; }
-        //public ICollection<Salaries> Salaries { get; set; }
+        public ICollection<string> Titles { get; set; }
+        public ICollection<int> Salaries { get; set; } 
+        public ICollection<string> DepartmentId { get; set; }
     }
 }

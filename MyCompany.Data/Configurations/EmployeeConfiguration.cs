@@ -15,8 +15,8 @@ namespace MyCompany.Data.Configurations
             builder.Property(x => x.EmployeeId).UseIdentityColumn();
             builder.Property(x => x.FirstName).HasMaxLength(50);
             builder.Property(x => x.LastName).IsRequired().HasMaxLength(50);
-            builder.HasMany<Title>(x => x.Titles).WithOne(x => x.Employee).HasForeignKey(x => x.EmployeeId);
-            builder.HasMany<Salaries>(x => x.Salaries).WithOne(x => x.Employee).HasForeignKey(x => x.EmployeeId);
+            builder.HasMany<Title>(x => x.Titles).WithOne(x => x.Employee).HasForeignKey(x => x.EmployeeId).OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany<Salaries>(x => x.Salaries).WithOne(x => x.Employee).HasForeignKey(x => x.EmployeeId).OnDelete(DeleteBehavior.Cascade);
 
             builder.ToTable("Employees");
         }

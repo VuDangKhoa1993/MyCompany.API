@@ -13,6 +13,13 @@ namespace MyCompany.Data.Repository
     {
         public EmployeeRepository(MyCompanyDbContext context) : base(context) { }
 
+        public async Task<IEnumerable<Employee>> GetAllEmployeeAsync()
+        {
+            return await _context.Employees.Include(m => m.Titles)
+                        .Include(m => m.Salaries).Include(m => m.DepartmentEmployees)
+                        .AsNoTracking().ToListAsync();
+        }
+
         public async Task<IEnumerable<Employee>> GetAllWithSalaries()
         {
             return await _context.Employees.Include(m => m.Salaries).ToListAsync();
@@ -25,7 +32,14 @@ namespace MyCompany.Data.Repository
 
         public async Task<IEnumerable<Employee>> GetEmployeeByDepartmentId(int departmentId)
         {
-            return await _context.DepartmentEmployees.Where(x => x.DepartmentId == departmentId).Select(x => x.Employees).ToListAsync();
+            var data = await _context.DepartmentEmployees.Where(x => x.DepartmentId == departmentId).Select(x => x.Employees).ToListAsync();
+            return data;
+        }
+
+        public async Task<Employee> GetEmployeeByIdAsync(int id)
+        {
+            return await _context.Employees.Include(m => m.Titles)
+                        .Include(m => m.Salaries).Include(m => m.DepartmentEmployees).FirstOrDefaultAsync(x => x.EmployeeId == id);
         }
     }
 }

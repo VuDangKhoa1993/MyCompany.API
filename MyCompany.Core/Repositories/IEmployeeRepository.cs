@@ -8,8 +8,11 @@ namespace MyCompany.Core.Repositories
 {
     public interface IEmployeeRepository : IRepository<Employee>
     {
+        Task<IEnumerable<Employee>> GetAllEmployeeAsync();
+        Task<Employee> GetEmployeeByIdAsync(int id);
         Task<IEnumerable<Employee>> GetAllWithSalaries();
         Task<IEnumerable<Employee>> GetAllWithTitle();
+         //get all with departments
         Task<IEnumerable<Employee>> GetEmployeeByDepartmentId(int departmentId);
     }
 }

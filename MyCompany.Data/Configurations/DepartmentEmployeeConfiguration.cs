@@ -12,7 +12,7 @@ namespace MyCompany.Data.Configurations
         public void Configure(EntityTypeBuilder<DepartmentEmployee> builder)
         {
             builder.HasKey(x => new { x.DepartmentId, x.EmployeeId });
-            builder.HasOne(x => x.Employees).WithMany(x => x.DepartmentEmployees).HasForeignKey(x => x.EmployeeId);
+            builder.HasOne(x => x.Employees).WithMany(x => x.DepartmentEmployees).HasForeignKey(x => x.EmployeeId).OnDelete(DeleteBehavior.Cascade);
             builder.HasOne(x => x.Departments).WithMany(x => x.DepartmentEmployees).HasForeignKey(x => x.DepartmentId);
         }
     }

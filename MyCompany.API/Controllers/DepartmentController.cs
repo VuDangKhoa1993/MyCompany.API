@@ -98,12 +98,13 @@ namespace MyCompany.API.Controllers
 
             var response = _mapper.Map<Department, DepartmentResource>(result.Resource);
 
-            return CreatedAtAction(nameof(CreateAsync), "Department", new { departmentId = response.DepartmentId }, resource);
+            return Created("", resource);
         }
 
         [HttpPut("{id}")]
         [SwaggerOperation("Updating a existing department by id")]
-        [ProducesResponseType(typeof(DepartmentResource), 200)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateAsync(int id, [FromBody] SaveDepartmentResource resource)
         {
             if(resource == null)
@@ -125,7 +126,8 @@ namespace MyCompany.API.Controllers
 
         [HttpDelete("{id}")]
         [SwaggerOperation("Deleting a existing department")]
-        [ProducesResponseType(typeof(DepartmentResource), 200)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var result = await _departmentService.DeleteAsync(id);

@@ -8,6 +8,7 @@ using MyCompany.Core.Services.Communication.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Threading.Tasks;
 
 namespace MyCompany.API.Controllers
@@ -62,12 +63,42 @@ namespace MyCompany.API.Controllers
             if (resource == null) return BadRequest();
             var employeeToAdd = _mapper.Map<SaveEmployeeResource, Employee>(resource);
             var result = await _employeeService.CreateAsync(employeeToAdd);
-            if(!result.Success)
+            if (!result.Success)
             {
                 return BadRequest(result.Message);
             }
             var res = _mapper.Map<Employee, EmployeeResource>(result.Resource);
-            return CreatedAtAction(nameof(CreateAsync), "Employee", new { id = res.EmployeeId }, resource);
+            return Created("", resource);
         }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> UpdateAsync(int id, [FromBody]SaveEmployeeResource resource)
+        {
+            if (resource == null) return BadRequest();
+            var employee = _mapper.Map<SaveEmployeeResource, Employee>(resource);
+            var result = await _employeeService.UpdateAsync(id, employee);
+            if (!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+            var response = _mapper.Map<Employee, EmployeeResource>(result.Resource);
+            return Ok(response);
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            var result = await _employeeService.DeleteAsync(id);
+            if(!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+            var response = _mapper.Map<Employee, EmployeeResource>(result.Resource);
+            return Ok(response);
+        } 
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using MyCompany.Core.Services;
 
 namespace MyCompany.Data
 {
@@ -14,7 +15,6 @@ namespace MyCompany.Data
                 options.UseSqlServer(configuration.GetConnectionString("Default"), x => x.MigrationsAssembly("MyCompany.Data"));
             });
 
-            //services.AddScoped<MyCompanyDbContext>(provider => provider.GetService<MyCompanyDbContext>());
             return services;
         }
 
@@ -26,5 +26,11 @@ namespace MyCompany.Data
             });
             return services;
         }
+
+        public static IServiceCollection AddAppsettingConfigs(this IServiceCollection services)
+        {
+            services.Configure<>
+        }
+
     }
 }

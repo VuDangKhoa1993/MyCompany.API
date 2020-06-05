@@ -18,6 +18,7 @@ using MyCompany.Data.Repository;
 using MyCompany.Service.Services;
 using Microsoft.OpenApi.Models;
 using AutoMapper;
+using MyCompany.API.Helpers;
 
 namespace MyCompany.API
 {
@@ -34,17 +35,14 @@ namespace MyCompany.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddScoped<IDepartmentService, DepartmentService>();
-            services.AddScoped<IEmployeeService, EmployeeService>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddControllers().AddNewtonsoftJson(options =>
-            {
-                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-            });
-
             services.AddPersistence(Configuration)
-                    .AddSwagger();
+                    .AddSwagger()
+                    .AddServiceDependencies()
+                    .AddRepositoriesDenpendencies()
+                    .AddNewtonsoftJson();
+
             services.AddAutoMapper(typeof(Startup));
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
         }
 
 

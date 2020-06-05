@@ -65,7 +65,7 @@ namespace MyCompany.Service.Services
         public async Task<EmployeeResponse> UpdateAsync(int id, Employee employee)
         {
             var emp = await _unitOfWork.Employee.FindAsync(id);
-            if (emp == null) return new EmployeeResponse(employee);
+            if (emp == null) return new EmployeeResponse("Can't find provided employee id");
             emp.Birthday = employee.Birthday;
             emp.FirstName = employee.FirstName;
             emp.LastName = employee.LastName;
@@ -75,7 +75,6 @@ namespace MyCompany.Service.Services
             emp.Titles = employee.Titles;
             try
             {
-                _unitOfWork.Employee.Update(emp);
                 await _unitOfWork.CompleteAsync();
                 return new EmployeeResponse(emp);
             }

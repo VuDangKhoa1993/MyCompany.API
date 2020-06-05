@@ -9,6 +9,7 @@ namespace MyCompany.Core.Repositories
     {
         IDepartmentRepository Department { get; }
         IEmployeeRepository Employee { get; }
+        IUserRepository User { get; }
         Task<int> CompleteAsync();
     }
 }

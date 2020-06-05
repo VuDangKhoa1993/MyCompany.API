@@ -10,10 +10,6 @@ namespace MyCompany.API.Mapping
         {
             CreateMap<SaveDepartmentResource, Department>();
             CreateMap<SaveEmployeeResource, Employee>();
-                //.ForMember(dest => dest.Titles, 
-                //            opt => opt.MapFrom(src => src.Titles))
-                //.ForMember(dest => dest.Salaries, 
-                //           opt => opt.MapFrom(src => src.Salaries));
             CreateMap<SaveTitleResource, Title>();
             CreateMap<SaveSalariesResource, Salaries>();
             CreateMap<SaveDepartmentEmployeeResource, DepartmentEmployee>();
